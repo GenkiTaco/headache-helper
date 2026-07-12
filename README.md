@@ -60,54 +60,130 @@ The wiki is plain Markdown — **one file per source** with a metadata header (`
 
 ## Installation
 
-Requires [Claude Code](https://claude.com/claude-code).
+> **New to all of this?** This section assumes you've never installed a plugin — or Claude Code itself — before. Follow it top to bottom and you'll be fine. It takes about ten minutes.
 
-**Option A — as a marketplace (one command):**
+### Step 0 — What you're installing, in plain terms
+
+- **Claude Code** is a free tool from Anthropic that lets you talk to Claude (an AI assistant) from your computer's **terminal** — the app that lets you type commands to your computer. You'll install it once.
+- A **plugin** adds new abilities to Claude Code. Headache Helper is a plugin.
+- A **skill** is one of those abilities. This plugin adds two: one that answers questions (`/headache-helper`) and one that adds new research to your library (`/headache-ingest`). You run a skill by typing its name with a slash in front of it, like `/headache-helper`.
+- A **wiki** here just means a folder of research summaries on your own computer. Nothing is shared online.
+
+You do **not** need to know how to code. You'll copy and paste a few commands.
+
+### Step 1 — Open your terminal
+
+- **Mac:** Press `Cmd + Space`, type `Terminal`, press Enter. A window with a text prompt opens.
+- **Windows:** Open the Start menu, type `PowerShell`, press Enter.
+- **Linux:** Open your **Terminal** app.
+
+Anything shown in a grey code box below is meant to be **typed (or pasted) into this window, then run by pressing Enter.**
+
+### Step 2 — Install Claude Code (skip if you already have it)
+
+If you've never used Claude Code, follow the official installation guide here: **[claude.com/claude-code](https://claude.com/claude-code)**. It walks you through installing it and signing in with your Anthropic account.
+
+To check whether it's already installed, type this and press Enter:
+
+```bash
+claude --version
+```
+
+- If you see a version number (like `1.2.3`), you're good — go to Step 3.
+- If you see `command not found`, Claude Code isn't installed yet. Use the guide linked above, then come back.
+
+### Step 3 — Start Claude Code
+
+In your terminal, type:
+
+```bash
+claude
+```
+
+Press Enter. The prompt changes — you're now **inside Claude Code**. From here on, the commands that start with a slash (`/`) are typed at *this* Claude Code prompt, **not** the plain terminal.
+
+> **How to tell the two apart:** commands starting with `/` (like `/plugin`) go to the Claude Code prompt. Commands like `cp` or `git` (no slash) go to a plain terminal. When in doubt, this README labels each one.
+
+### Step 4 — Install the plugin
+
+At the Claude Code prompt, type these two lines, pressing Enter after each:
 
 ```
 /plugin marketplace add GenkiTaco/headache-helper
+```
+
+```
 /plugin install headache-helper
 ```
 
-**Option B — manual:**
+The first line tells Claude Code where to find this plugin (my public GitHub repo). The second line installs it. If it asks you to confirm, say yes. That's it — the plugin is installed.
 
-```bash
-git clone https://github.com/GenkiTaco/headache-helper.git
-```
-
-Then add the cloned path to your Claude Code plugin configuration (or drop `skills/headache-helper` and `skills/headache-ingest` into your `~/.claude/skills/`).
+> **Prefer to do it by hand?** You can instead clone the repo in a plain terminal with `git clone https://github.com/GenkiTaco/headache-helper.git` and copy the two folders inside `skills/` into your `~/.claude/skills/` directory. The marketplace method above is easier and is recommended.
 
 ---
 
-## Setup — create your wiki
+## Setup — create your wiki (one time)
 
-The plugin ships an empty knowledge-base template in [`knowledge/`](knowledge/). Copy it into the project where you want to use the wiki, named `headache-wiki/`:
+The plugin comes with an **empty** starter library in a folder called `knowledge/`. You need to make your own copy of it — named `headache-wiki/` — inside the folder where you want to keep your research. This is where your approved sources will live.
+
+### Step 1 — Pick and open a folder
+
+Decide where you want your wiki to live — for most people a new folder in Documents is perfect. In a **plain terminal** (not the Claude Code prompt), create one and move into it. For example:
 
 ```bash
-cp -R knowledge/ headache-wiki/
+mkdir ~/Documents/headaches
+cd ~/Documents/headaches
 ```
 
-That gives you:
+`mkdir` makes the folder; `cd` ("change directory") moves you into it. From now on, this is your **project folder** — the place Claude Code will look for your wiki.
+
+### Step 2 — Copy the starter library into it
+
+You need the path to where the plugin was installed. The marketplace installer puts it under `~/.claude`. Copy the starter library into your project folder with:
+
+```bash
+cp -R ~/.claude/plugins/*/headache-helper/knowledge/ ./headache-wiki/
+```
+
+`cp -R` means "copy a whole folder and everything inside it." This creates a `headache-wiki/` folder right where you are.
+
+> **If that command can't find the folder** (you see "No such file or directory"), you installed manually instead. Just find the `knowledge/` folder inside wherever you cloned the repo, and copy it — e.g. `cp -R /path/to/headache-helper/knowledge/ ./headache-wiki/`.
+
+You should now have this inside your project folder:
 
 ```
 headache-wiki/
-├── DESIGN.md        # the data contract (source of truth)
-├── _TEMPLATE.md     # entry template (one source = one file)
-├── INDEX.md         # scan table (auto-maintained)
-├── CITATIONS.md     # running bibliography (auto-maintained)
-├── ANSWER-LOG.md    # answered questions + re-validation
-├── wiki/            # approved sources live here (starts with one EXAMPLE to delete)
+├── DESIGN.md        # the rulebook for how sources are stored (don't need to read it)
+├── _TEMPLATE.md     # the blank form each source is filled into
+├── INDEX.md         # a table of every source (kept up to date for you)
+├── CITATIONS.md     # a running bibliography (kept up to date for you)
+├── ANSWER-LOG.md    # a record of questions you've asked
+├── wiki/            # your approved sources live here (starts with one EXAMPLE file)
 └── pending/
-    └── REJECTED.md  # rejection audit trail
+    └── REJECTED.md  # a log of sources that were rejected, and why
 ```
 
-Delete `wiki/EXAMPLE-entry.md`, then populate the wiki with `/headache-ingest`.
+### Step 3 — Delete the example file
 
-> The skills default to `headache-wiki/` in your current project. If you keep the wiki elsewhere, tell the skill the path when you invoke it.
+The `wiki/` folder ships with a single placeholder called `EXAMPLE-entry.md` so you can see the format. Delete it so it doesn't clutter real answers:
+
+```bash
+rm headache-wiki/wiki/EXAMPLE-entry.md
+```
+
+Your wiki now starts empty and ready. You'll fill it up in the next section.
+
+> **Where does the wiki have to be?** The skills automatically look for a folder named `headache-wiki/` in whatever project folder you're in when you start Claude Code. As long as you launched `claude` from the folder that contains `headache-wiki/`, it just works. If you keep your wiki somewhere else, simply tell the skill the path when you run it (e.g. "use the wiki at ~/Documents/headaches/headache-wiki").
 
 ---
 
 ## Usage
+
+> **Every time you want to use it:** open a plain terminal, `cd` into your project folder (the one that contains `headache-wiki/`), and run `claude` to start Claude Code. Then type the slash-commands below at the Claude Code prompt. For example:
+> ```bash
+> cd ~/Documents/headaches
+> claude
+> ```
 
 **Add sources to a topic** (nothing enters the wiki without your OK):
 
