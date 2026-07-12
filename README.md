@@ -3,7 +3,9 @@
 **A Claude Code plugin for answering headache & migraine questions that refuses to make things up.**
 
 <p align="center">
-  <img src="assets/demo.gif" alt="Headache Helper demo: a grounded, cited answer with a safety flag and disclaimer; an honest 'the wiki doesn't cover this yet' refusal; and the whitelist + approval gate of the ingest workflow." width="840">
+  <a href="assets/demo.gif"><img src="assets/demo.gif" alt="Headache Helper demo: a grounded, cited answer with a safety flag and disclaimer; an honest 'the wiki doesn't cover this yet' refusal; and the whitelist + approval gate of the ingest workflow." width="840"></a>
+  <br>
+  <sub>Animated demo (loops). Not seeing motion — e.g. in email? Here's the <a href="assets/demo.png">static screenshot</a>.</sub>
 </p>
 
 Headache Helper answers your questions *only* from a curated local wiki of peer-reviewed papers, clinical guidelines, and neurology reference texts that **you approve** — with inline citations, source-conflict resolution, and a hard no-fabrication rule. If the wiki doesn't cover something, it says so and offers to research it. It never answers from the model's general knowledge.
