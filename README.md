@@ -139,13 +139,13 @@ cd ~/Documents/headaches
 
 ### Step 2 — Copy the starter library into it
 
-You need the path to where the plugin was installed. The marketplace installer puts it under `~/.claude`. Copy the starter library into your project folder with:
+The marketplace installer keeps its copy of the plugin under `~/.claude/plugins/cache/`. Copy the starter library from there into your project folder with this one command:
 
 ```bash
-cp -R ~/.claude/plugins/*/headache-helper/knowledge/ ./headache-wiki/
+cp -R ~/.claude/plugins/cache/headache-helper/headache-helper/*/knowledge/ ./headache-wiki/
 ```
 
-`cp -R` means "copy a whole folder and everything inside it." This creates a `headache-wiki/` folder right where you are.
+`cp -R` means "copy a whole folder and everything inside it." The `*` in the middle just stands in for the version number, so this keeps working after updates. This creates a `headache-wiki/` folder right where you are.
 
 > **If that command can't find the folder** (you see "No such file or directory"), you installed manually instead. Just find the `knowledge/` folder inside wherever you cloned the repo, and copy it — e.g. `cp -R /path/to/headache-helper/knowledge/ ./headache-wiki/`.
 
