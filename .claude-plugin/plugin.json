@@ -1,0 +1,23 @@
+{
+  "name": "headache-helper",
+  "version": "1.0.0",
+  "description": "Grounded-only headache & migraine Q&A. Answers strictly from a curated local wiki of peer-reviewed papers, guidelines, and reference texts — with inline citations, recency-wins-within-tier conflict resolution, and a hard no-fabrication rule. Ships a fetch-and-approve ingest workflow so nothing enters the wiki without your review.",
+  "author": {
+    "name": "GenkiTaco",
+    "url": "https://github.com/GenkiTaco"
+  },
+  "homepage": "https://github.com/GenkiTaco/headache-helper",
+  "repository": "https://github.com/GenkiTaco/headache-helper",
+  "license": "MIT",
+  "keywords": [
+    "headache",
+    "migraine",
+    "neurology",
+    "evidence-based",
+    "rag",
+    "grounded",
+    "citations",
+    "no-hallucination",
+    "medical"
+  ]
+}

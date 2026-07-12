@@ -1,0 +1,9 @@
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# A user's populated wiki should NOT be committed to this framework repo.
+# If you copy knowledge/ to headache-wiki/, keep your sources local.
+/headache-wiki/
