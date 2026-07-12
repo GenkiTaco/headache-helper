@@ -35,6 +35,7 @@ Headache Helper's premise is simple: **grounding, not model quality, is what mak
 - **Recency-wins-within-tier conflict resolution.** When sources disagree, the higher evidence tier wins first; among equals, the newer one wins — and the answer says when it applied this.
 - **Human approval gate.** Fetched sources land in `pending/` and never enter the answerable wiki without your explicit approval.
 - **Re-validation safeguard.** Every answer is logged with the exact sources it used. When you ingest new material, the plugin re-checks past answers and flags any that a newer/higher-tier source has changed — so guidance can't quietly drift.
+- **Personal headache history.** On first run the plugin sets up `HEADACHE-HISTORY.md` — your private journal of questions asked, treatments tried, and attack entries. Answers use it as context about *you* (never as medical evidence), and it stays on your computer.
 - **Running bibliography.** A `CITATIONS.md` of every source, DOI-linked and grouped by topic, is kept current automatically.
 - **Rejection audit trail.** Every source the gate refuses is logged with a reason, so you have a durable record of what was excluded and why.
 - **Standing disclaimer** on every answer.
@@ -124,6 +125,10 @@ The first line tells Claude Code where to find this plugin (my public GitHub rep
 
 ## Setup — create your wiki (one time)
 
+> **Good news — the plugin now does this for you.** The first time you run `/headache-helper` or `/headache-ingest` in a folder with no wiki, the skill offers to create `headache-wiki/` from the shipped template and then interviews you to set up your personal **`HEADACHE-HISTORY.md`** — a private file that tracks your questions, your treatments, and your experiences over time (it stays on your computer, and it's context for answers, never a medical source). You can simply skip ahead to [Usage](#usage) and let the first run walk you through it.
+>
+> The manual steps below do the same thing by hand — kept for reference, and for when you want to control exactly where everything goes.
+
 The plugin comes with an **empty** starter library in a folder called `knowledge/`. You need to make your own copy of it — named `headache-wiki/` — inside the folder where you want to keep your research. This is where your approved sources will live.
 
 ### Step 1 — Pick and open a folder
@@ -153,14 +158,15 @@ You should now have this inside your project folder:
 
 ```
 headache-wiki/
-├── DESIGN.md        # the rulebook for how sources are stored (don't need to read it)
-├── _TEMPLATE.md     # the blank form each source is filled into
-├── INDEX.md         # a table of every source (kept up to date for you)
-├── CITATIONS.md     # a running bibliography (kept up to date for you)
-├── ANSWER-LOG.md    # a record of questions you've asked
-├── wiki/            # your approved sources live here (starts with one EXAMPLE file)
+├── DESIGN.md             # the rulebook for how sources are stored (don't need to read it)
+├── _TEMPLATE.md          # the blank form each source is filled into
+├── INDEX.md              # a table of every source (kept up to date for you)
+├── CITATIONS.md          # a running bibliography (kept up to date for you)
+├── ANSWER-LOG.md         # the system's record of answers, for re-validation
+├── HEADACHE-HISTORY.md   # YOUR file: your questions, treatments, and experiences
+├── wiki/                 # your approved sources live here (starts with one EXAMPLE file)
 └── pending/
-    └── REJECTED.md  # a log of sources that were rejected, and why
+    └── REJECTED.md       # a log of sources that were rejected, and why
 ```
 
 ### Step 3 — Delete the example file

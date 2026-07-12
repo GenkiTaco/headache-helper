@@ -9,6 +9,10 @@ Fetch candidate sources for the headache wiki from the approved whitelist only, 
 
 **Where the wiki lives:** by default, `headache-wiki/` in the current project.
 
+## First run — no wiki yet?
+
+If `headache-wiki/` does not exist in the current project: tell the user, and offer to create it from the plugin's shipped template — copy `${CLAUDE_PLUGIN_ROOT}/knowledge/` to `./headache-wiki/`, then delete `headache-wiki/wiki/EXAMPLE-entry.md`. **Create nothing until the user confirms the location.** Then offer to help them start `headache-wiki/HEADACHE-HISTORY.md` (their personal questions-and-experiences file — see the headache-helper skill's first-run steps). If they've filled in **About me**, use it to suggest their first ingest topics (e.g., their headache type, their current preventive).
+
 ## Source gate (apply before drafting anything)
 
 **ACCEPT** (draft into `pending/`):
